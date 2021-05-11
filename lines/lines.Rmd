@@ -1,0 +1,83 @@
+---
+title: "lines"
+author: "Kristen A, kkakey"
+date: "4/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+# create the data
+set.seed(9)
+
+num_square_high <- 6
+num_square_long <- 5 
+start <- 0
+x1 <- c()
+x2 <- c()
+y1 <- c()
+y2 <- c()
+f <- c()
+for (i in seq(num_square_long)) {
+  x1_i = c(rep(start,num_square_high), rep(start+1,num_square_high))
+  y1_i = c(seq(1,length.out = num_square_high, by=2), seq(2,length.out = num_square_high, by=2))
+  x2_i = c(rep(start+1,num_square_high), rep(start+2,num_square_high))
+  y2_i = c(seq(2,length.out = num_square_high, by=2), seq(3,length.out = num_square_high, by=2))
+  f_i <- rep(sample(LETTERS, size = 1, replace = F), num_square_high)
+  x1 <- c(x1, x1_i)
+  x2 <- c(x2, x2_i)
+  y1 <- c(y1, y1_i)
+  y2 <- c(y2, y2_i)
+  f <- c(f, f_i)
+  start <- start + 2
+}
+d=data.frame(x1=x1, x2=x2, y1=y1, y2=y2, f=f)
+
+num_square_high <- 20
+num_square_long <- 4
+start <- 0
+x1 <- c()
+x2 <- c()
+y1 <- c()
+y2 <- c()
+f <- c()
+for (i in seq(num_square_long)) {
+  x1_i = c(rep(start,num_square_high), rep(start+1,num_square_high))
+  y1_i = c(seq(1,length.out = num_square_high, by=2), seq(2,length.out = num_square_high, by=2))
+  x2_i = c(rep(start+1,num_square_high), rep(start+2,num_square_high))
+  y2_i = c(seq(2,length.out = num_square_high, by=2), seq(3,length.out = num_square_high, by=2))
+  f_i <- rep(sample(LETTERS, size = 1, replace = F), num_square_high)
+  x1 <- c(x1, x1_i)
+  x2 <- c(x2, x2_i)
+  y1 <- c(y1, y1_i)
+  y2 <- c(y2, y2_i)
+  f <- c(f, f_i)
+  start <- start + 2
+}
+d2=data.frame(x1=x1, x2=x2, y1=y1, y2=y2, f=f)
+```
+
+```{r}
+ggplot() +
+  geom_curve(data=d2, aes(x=x1+130, y=x2-50, xend=y1+100, yend=y2+125, color=f)) +
+  geom_curve(data=d2, aes(x=x1+80, y=x2+80, xend=y1-50, yend=y2-150, color=f)) +
+  geom_curve(data=d2, aes(x=x1-40, y=x2-40, xend=y1+50, yend=y2+150, color=f)) +
+  geom_curve(data=d2, aes(x=x1+160, y=x2+160, xend=y1-75, yend=y2-75, color=f)) +
+  geom_curve(data=d2, aes(x=x1-80, y=x2+-80, xend=y1+60, yend=y2-70, color=f)) +
+  geom_curve(data=d2, aes(x=x1-20, y=x2-70, xend=y1+180, yend=y2+75, color=f)) +
+  geom_curve(data=d2, aes(x=x1+15, y=x2-90, xend=y1+150, yend=y2-75, color=f)) +
+  theme_void() +
+  theme(plot.background = element_rect(fill="#020887", color=NA),
+        panel.background = element_rect(fill="#020887", color=NA)) +
+  scale_color_manual(values = c("#D45113", "#F9A03F", "#018E42")) +
+  theme(legend.position = "none") +
+  ggsave("1-1.png", dpi=600)
+```
+

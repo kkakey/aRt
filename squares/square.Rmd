@@ -1,0 +1,246 @@
+---
+title: "square"
+author: "Kristen A, kkakey"
+date: "4/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+Cascading squares
+```{r}
+#### create dataframe ####
+num_square_high <- 10
+num_square_long <- 6 
+start <- 0
+x1 <- c()
+x2 <- c()
+y1 <- c()
+y2 <- c()
+for (i in seq(num_square_long)) {
+  x1_i = c(rep(start,num_square_high), rep(start+1,num_square_high))
+  y1_i = c(seq(start+1,length.out = num_square_high, by=2), seq(start+2,length.out = num_square_high, by=2))
+  x2_i = c(rep(start+1,num_square_high), rep(start+2,num_square_high))
+  y2_i = c(seq(start+2,length.out = num_square_high, by=2), seq(start+3,length.out = num_square_high, by=2))
+  x1 <- c(x1, x1_i)
+  x2 <- c(x2, x2_i)
+  y1 <- c(y1, y1_i)
+  y2 <- c(y2, y2_i)
+  start <- start + .5
+}
+d=data.frame(x1=x1, x2=x2, y1=y1, y2=y2)
+
+d <- d %>%
+  arrange(y1) %>%
+  mutate(id2 = seq(1,nrow(.)))
+d$id2 <- as.factor(d$id2)
+
+#### plot ####
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=as.numeric(id2)), 
+            color="black") +
+  scale_fill_gradient(low="#F1C2FF", high="#3F0052") +
+  theme_void() +
+  theme(plot.margin = unit(c(bottom=0, left=2, top=0, right=2.5),"cm"),
+        legend.position = "none",
+        plot.background = element_rect(fill="#FFBC0A", color=NA))+
+  ggsave("4-42.png", height=10)
+```
+
+
+Square centered within a square
+```{r}
+#### create dataframe ####
+set.seed(9)
+num_square_high <- 6
+num_square_long <- 5 
+start <- 0
+x1 <- c()
+x2 <- c()
+y1 <- c()
+y2 <- c()
+f <- c()
+for (i in seq(num_square_long)) {
+  x1_i = c(rep(start,num_square_high), rep(start+1,num_square_high))
+  y1_i = c(seq(1,length.out = num_square_high, by=2), seq(2,length.out = num_square_high, by=2))
+  x2_i = c(rep(start+1,num_square_high), rep(start+2,num_square_high))
+  y2_i = c(seq(2,length.out = num_square_high, by=2), seq(3,length.out = num_square_high, by=2))
+  f_i <- rep(sample(LETTERS, size = 1, replace = F), num_square_high)
+  x1 <- c(x1, x1_i)
+  x2 <- c(x2, x2_i)
+  y1 <- c(y1, y1_i)
+  y2 <- c(y2, y2_i)
+  f <- c(f, f_i)
+  start <- start + 2
+}
+d=data.frame(x1=x1, x2=x2, y1=y1, y2=y2, f=f)
+```
+
+```{r}
+# add sampling of different colors
+d$f <- sort(rep(sample(LETTERS, size = 6, replace = F), num_square_long))
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-23-2.png", width=2.6, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+    geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-2.png", width=3, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-3.png", width=3, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25), ymin=(y1+.25)+1, ymax=(y2-.25)+1, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=(y1+.25)-1, ymax=(y2-.25)-1, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-4.png", width=3, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25), ymin=(y1+.25)+1, ymax=(y2-.25)+1, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25), ymin=(y1+.25)-1, ymax=(y2-.25)-1, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-5.png", width=3, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25), ymin=(y1+.25)+1, ymax=(y2-.25)+1, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25), ymin=(y1+.25)-1, ymax=(y2-.25)-1, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-6.png", width=3, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25), ymin=(y1+.25)+1, ymax=(y2-.25)+1, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25)-1, ymin=(y1+.25)-1, ymax=(y2-.25)-1, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-62.png", width=3, height=3)
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=(y1+.25)+1, ymax=(y2-.25)+1, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25), ymin=(y1+.25)-1, ymax=(y2-.25)-1, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-64.png", width=3, height=3)
+
+
+ggplot() +
+  geom_rect(data=d, mapping=aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2, fill=f), color="black") +
+  geom_rect(data=d, mapping=aes(xmin=x1+.25, xmax=x2-.25, ymin=y1+.25, ymax=y2-.25), 
+            fill="#faf0e6", color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)+1, xmax=(x2-.25)+1, ymin=y1+.25, ymax=y2-.25, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25)-1, xmax=(x2-.25)-1, ymin=(y1+.25)+1, ymax=(y2-.25)+1, fill=f), 
+            color="black",size=.3) +
+  geom_rect(data=d, mapping=aes(xmin=(x1+.25), xmax=(x2-.25), ymin=(y1+.25)-1, ymax=(y2-.25)-1, fill=f), 
+            color="black",size=.3) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#faf0e6", color=NA),
+        panel.background = element_rect(fill = "#faf0e6", color=NA),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#D45113", "#F9A03F", "#018E42", "#454E9E", "#190E4F", "#A53860")) +
+  ggsave("plot5-24-7.png", width=3, height=3)
+```
+
+
