@@ -19,3 +19,11 @@ A personal, exploratory project of creating generative art in R
 <p align="center">
 <a href="url"><img src="https://raw.githubusercontent.com/kkakey/aRt/main/squares/plots/4-42.png" width="550" ></a>
 </p>
+
+### [leaves](https://github.com/kkakey/aRt/blob/main/leaf/leaf.Rmd)
+
+Animation created with the help of A.V. 😊
+<p align="center">
+<a href="url"><img src="https://raw.githubusercontent.com/kkakey/aRt/main/leaf/leaf-continuous.gif" width="750" ></a>
+</p>
+
