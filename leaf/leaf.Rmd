@@ -1,0 +1,65 @@
+---
+title: "leaf"
+author: "Kristen A, kkakey"
+date: "5/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+# create the data
+set.seed(9)
+num_square_high <- 6
+num_square_long <- 5 
+start <- 0
+x1 <- c()
+x2 <- c()
+y1 <- c()
+y2 <- c()
+f <- c()
+for (i in seq(num_square_long)) {
+  x1_i = c(rep(start,num_square_high), rep(start+1,num_square_high))
+  y1_i = c(seq(1,length.out = num_square_high, by=2), seq(2,length.out = num_square_high, by=2))
+  x2_i = c(rep(start+1,num_square_high), rep(start+2,num_square_high))
+  y2_i = c(seq(2,length.out = num_square_high, by=2), seq(3,length.out = num_square_high, by=2))
+  f_i <- rep(sample(LETTERS, size = 1, replace = F), num_square_high)
+  x1 <- c(x1, x1_i)
+  x2 <- c(x2, x2_i)
+  y1 <- c(y1, y1_i)
+  y2 <- c(y2, y2_i)
+  f <- c(f, f_i)
+  start <- start + 2
+}
+d=data.frame(x1=x1, x2=x2, y1=y1, y2=y2, f=f)
+```
+
+```{r}
+# looks like a leaf!
+ggplot() +
+  geom_curve(data=d, aes(x=x1, y=x2, xend=y1, yend=y2, color=f)) +
+  theme_void() +
+  theme(plot.background = element_rect(fill="#45050C", color=NA),
+        panel.background = element_rect(fill="#45050C", color=NA),
+        # plot.margin = margin(t=0, r=0,b=2, l=0, unit = "in"),
+        legend.position = "none") +
+  scale_color_manual(values = c("#EE8434", "#C95D63", "#AE8799", "#717EC3",
+                               "#5B4268")) +
+  ggsave("leaf-og.png")
+
+# leaf with transparent background
+ggplot() +
+  geom_curve(data=d, aes(x=x1, y=x2, xend=y1, yend=y2, color=f)) +
+  theme_void() +
+  theme(legend.position = "none") +
+  scale_color_manual(values = c("#EE8434", "#C95D63", "#AE8799", "#717EC3",
+                               "#5B4268")) +
+  ggsave("leaf-og-void.png", bg = "transparent")
+```
+
