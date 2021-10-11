@@ -1,0 +1,91 @@
+---
+title: "Untitled"
+author: "Kristen A, kkakey"
+date: "10/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(ggforce)
+```
+
+```{r}
+val <- 24
+val_2 <- 24
+d <- data.frame(x = rep(seq(0,26,length.out=val),val_2),
+                y = sort(rep(seq(0,21,length.out=val_2),val))
+)
+
+d2 <- d
+d2$x <- d$x-(0.8333333/2)
+d2$y <- d$y-(0.5789474/2)
+
+d$a <- .1
+d$b <- .1
+d$s <- .9
+
+d2$a <- .1
+d2$b <- .1
+d2$s <- .9
+
+d[169:192,]$a <- .25
+d[169:192,]$b <- .07
+d[169:192,]$s <- .1
+
+d2[169:192,]$a <- .25
+d2[169:192,]$b <- .07
+d2[169:192,]$s <- .1
+```
+
+
+```{r}
+pal1 <- c("#59114D", "#E98A15", "#ECE5F0")
+pal2 <- c("#B57F50", "#DCE2AA", "#B4D2BA")
+pal3 <- c("#F3EFF5", "#454955", "#0D0A0B")
+pal4 <- c("#C3DBC5", "#E8DCB9", "#F2CEE6")
+pal5 <- c("#BF4342", "#7798AB", "#0D1B1E")
+pal6 <- c("#B1F8F2", "#BCD39C", "#FFFC99")
+pal7 <- c("#E28413", "#F56416", "#EA1744")
+pal8 <- c("#F7FFF7", "#4ECDC4", "#292F36")
+pal9 <- c("#FCFDAF", "#EFD780", "#DBA159")
+pal10 <- c("#F8C0C8", "#6B2D5C", "#D0E3CC")
+pal11 <- c("#16DB65", "#058C42", "#04471C")
+pal12 <- c("#122C34", "#4EA5D9", "#2A4494")
+
+pal_list <- c("pal01", "pal02", "pal03", "pal04", "pal05", "pal06",
+              "pal07", "pal08", "pal09", "pal10", "pal11", "pal12")
+
+i <- 10
+for (val in pal_list) {
+
+ggplot() +
+  geom_ellipse(data = d, aes(x0 = x, y0 = y, 
+                             a=a,b=b,
+                             angle=0,  size=s), 
+               color = eval(as.name(val))[1], fill=eval(as.name(val))[1]) +
+  geom_ellipse(data = d2, aes(x0 = x, y0 = y, 
+                              a=.1,b=.1,angle=0, size=s), 
+               color=eval(as.name(val))[2], fill=eval(as.name(val))[2]) +
+  xlim(-1, 24.4) +
+  ylim(-1, 22.5) +
+  coord_fixed(expand = F, clip = "on") +
+  coord_polar() +
+  scale_size(guide="none") +
+  theme_void() +
+  theme(plot.background = element_rect(color=eval(as.name(val))[3],
+                                       fill=eval(as.name(val))[3]),
+        panel.background = element_rect(color=eval(as.name(val))[3],
+                                        fill=eval(as.name(val))[3]),
+        plot.margin = unit(c(t=1.5,r=1.5,b=1.5,l=1.5), "cm")) +
+  ggsave(paste0("p",substr(val, 3,5),".png"), width = 14, height=14)
+  
+  i <- i+1
+}
+```
+
+
