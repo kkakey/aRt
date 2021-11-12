@@ -1,5 +1,3 @@
-*.html linguist-vendored
-css/* linguist-vendored
-*.gs linguist-language=R
-*.gs linguist-language=Rmd
+*.rmd  linguist-detectable
+*.Rmd  linguist-detectable
 
