@@ -41,9 +41,8 @@ Animation created with the help of A.V. 😊
 <img src="https://raw.githubusercontent.com/kkakey/aRt/main/squares/plots/plot5-24-6.png" width="550" >
 </p>
 
-
-<p align="center">
+<!-- <p align="center">
 <img src="https://raw.githubusercontent.com/kkakey/aRt/main/squares/plots/4-42.png" width="450" >
 </p>
-
+ -->
 
