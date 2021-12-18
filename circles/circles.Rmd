@@ -1,0 +1,129 @@
+---
+title: "circles"
+author: "Kristen A, kkakey"
+date: "12/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+devtools::install_github("BlakeRMills/MetBrewer") 
+library(MetBrewer)
+library(tidyverse)
+```
+
+**********************************************************************
+
+```{r}
+x <- sort(rep(seq(0,300),10))
+size <- sample(25:45, size=length(x), replace = T)
+
+adjustment_func <- function(x) {
+  if (x%%2==0 & x!=0) {x <- x - sample(30:55, size=1, replace = T, prob = NULL)}
+  else {x <-x} 
+}
+
+y <- unlist(lapply(x, adjustment_func))
+col <- as.factor(y)
+df <- data.frame(x,y,col)
+```
+
+```{r}
+ggplot(data=df) +
+  geom_circle(aes(x0 = y, y0 = y, r = y, color=col), size=.5) +
+  geom_hline(yintercept = -25, color="black",size=2.5) +
+  geom_hline(yintercept = 25, color="black",size=2.5) +
+  theme_void() +
+  theme(legend.position = "none",
+        plot.background = element_rect(fill="black", color=NA),
+        panel.background = element_rect(fill="black", color=NA)) +
+  scale_color_manual(values = met.brewer("Troy",n=51,type="continuous")) +
+  coord_fixed(expand = T) +
+  ylim(-25,25) +
+  ggsave("plot-a.png", dpi = 400)
+```
+
+**********************************************************************
+
+```{r}
+x <- rep(0,30)
+y <- seq(.14,-.1,length.out=30)
+col <- as.factor(y)
+df <- data.frame(x,y,col)
+```
+
+```{r}
+# pal_opt <- c("Renoir", "Manet", "VanGogh2", "Morgenstern", "Wissing", "Tiepolo")
+pal_opt <- c("Cross", "Egypt", "Greek", "Hokusai", "Isfahan1", "Klimt")
+pal_order <- c(sample(1:length(pal_opt), 1))
+myplots <- list()
+for (i in seq_len(20)) {
+  s <- runif(1, min=1.5, max=3.5)
+  pal_num <- sample(1:length(pal_opt), 1)
+  while(pal_num==pal_order[1]) {
+    pal_num <- sample(1:length(pal_opt), 1)
+  }
+  pal_order <- c(pal_num, pal_order)
+  l <- runif(1, min=.05, max=.1)
+  
+  myplots[[i]]  <- ggplot() +
+    geom_circle(aes(x0 = x, y0 = x, r = y, color=col), size=s) +
+    scale_color_manual(values = met.brewer(pal_opt[pal_num],n=50,type="continuous")) +
+    theme_void() +
+    theme(legend.position = "none", 
+          plot.background = element_rect(fill="#808080", color=NA),
+          panel.background =  element_rect(fill="#808080", color="black", size=8)) +
+    coord_fixed(expand = T) +
+    ylim(-l,l) +
+    xlim(-l,l) 
+}
+
+cowplot::plot_grid(plotlist=myplots, greedy=T) +
+  ggsave("all_plot-5.png", width=8.75)
+```
+
+**********************************************************************
+
+```{r}
+pat_1 <- c(1,7,13,19)
+pat_2 <- c(2,8,14,20)
+pat_3 <- c(3,9,15,2)
+pat_4 <- c(4,10)
+pat_5 <- c(5)
+pat_6 <- c(6,12,18)
+pat_7 <- c(11,17)
+pat_8 <- c(16)
+
+pal_opt <- c("Renoir", "Manet", "VanGogh2", "Morgenstern", "Wissing", "Tiepolo", "Ingres", "Hokusai")
+myplots <- list()
+for (i in seq_len(20)) {
+  s <- runif(1, min=1.5, max=3.5)
+  pal <- case_when(i %in% pat_1 ~ pal_opt[1],
+          i %in% pat_2 ~ pal_opt[2],
+          i %in% pat_3 ~ pal_opt[3],
+          i %in% pat_4 ~ pal_opt[4],
+          i %in% pat_5 ~ pal_opt[5],
+          i %in% pat_6 ~ pal_opt[6],
+          i %in% pat_7 ~ pal_opt[7],
+          i %in% pat_8 ~ pal_opt[8])
+  l <- runif(1, min=.05, max=.1)
+  
+  myplots[[i]]  <- ggplot() +
+    geom_circle(aes(x0 = x, y0 = x, r = y, color=col), size=s) +
+    scale_color_manual(values = met.brewer(pal,n=50,type="continuous")) +
+    theme_void() +
+    theme(legend.position = "none", 
+          plot.background = element_rect(fill="#808080", color=NA),
+          panel.background =  element_rect(fill="#808080", color="black", size=8)) +
+    coord_fixed(expand = T) +
+    ylim(-l,l) +
+    xlim(-l,l) 
+}
+
+cowplot::plot_grid(plotlist=myplots, greedy=T) +
+  ggsave("all_plot-g.png", width=8.75)
+```
+
