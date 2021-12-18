@@ -2,6 +2,19 @@
 A personal, exploratory project of creating generative art in R
 ***************************************************************
 
+### [knitted circles](https://github.com/kkakey/aRt/blob/main/circles/circles.Rmd)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/kkakey/aRt/main/circles/all_plot-5.png" width="700" >
+</p>
+
+
+### [circles](https://github.com/kkakey/aRt/blob/main/circles/circles.Rmd)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/kkakey/aRt/main/circles/plot-a.png" width="700" >
+</p>
+
 ### [sun](https://github.com/kkakey/aRt/tree/main/sun)
 
 <p align="center">
