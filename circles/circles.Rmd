@@ -47,6 +47,7 @@ ggplot(data=df) +
 ```
 
 **********************************************************************
+A slightly different visualization every time!
 
 ```{r}
 x <- rep(0,30)
@@ -61,12 +62,15 @@ pal_opt <- c("Cross", "Egypt", "Greek", "Hokusai", "Isfahan1", "Klimt")
 pal_order <- c(sample(1:length(pal_opt), 1))
 myplots <- list()
 for (i in seq_len(20)) {
+  # randomize size
   s <- runif(1, min=1.5, max=3.5)
+  # randomize color (but different from the last color choosen)
   pal_num <- sample(1:length(pal_opt), 1)
   while(pal_num==pal_order[1]) {
     pal_num <- sample(1:length(pal_opt), 1)
   }
   pal_order <- c(pal_num, pal_order)
+  # randomize image dimensions
   l <- runif(1, min=.05, max=.1)
   
   myplots[[i]]  <- ggplot() +
@@ -87,6 +91,7 @@ cowplot::plot_grid(plotlist=myplots, greedy=T) +
 
 **********************************************************************
 
+One color per diagonal
 ```{r}
 pat_1 <- c(1,7,13,19)
 pat_2 <- c(2,8,14,20)
@@ -100,7 +105,9 @@ pat_8 <- c(16)
 pal_opt <- c("Renoir", "Manet", "VanGogh2", "Morgenstern", "Wissing", "Tiepolo", "Ingres", "Hokusai")
 myplots <- list()
 for (i in seq_len(20)) {
+  # randomize size
   s <- runif(1, min=1.5, max=3.5)
+  # color depends on square location
   pal <- case_when(i %in% pat_1 ~ pal_opt[1],
           i %in% pat_2 ~ pal_opt[2],
           i %in% pat_3 ~ pal_opt[3],
@@ -109,6 +116,7 @@ for (i in seq_len(20)) {
           i %in% pat_6 ~ pal_opt[6],
           i %in% pat_7 ~ pal_opt[7],
           i %in% pat_8 ~ pal_opt[8])
+  # randomize image dimensions
   l <- runif(1, min=.05, max=.1)
   
   myplots[[i]]  <- ggplot() +
