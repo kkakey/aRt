@@ -21,6 +21,12 @@ A personal, exploratory project of creating generative art in R
 <img src="https://raw.githubusercontent.com/kkakey/aRt/main/sun/final_plots/9panel.png" width="550" >
 </p>
 
+### [Riley rendition](https://github.com/kkakey/art_recreations/blob/main/2021-08-12-Bridget_Riley/2021-08-12-Bridget_Riley.Rmd)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/kkakey/art_recreations/main/2021-08-12-Bridget_Riley/plot.png" width="550" >
+</p>
+
 ### [lines](https://github.com/kkakey/aRt/tree/main/lines)
 
 <p align="center">
