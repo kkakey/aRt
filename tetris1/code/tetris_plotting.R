@@ -4,7 +4,7 @@ library(patchwork)
 
 
 #############################################
-
+### OKeeffe
 #############################################
 p1 <- tetris(background_color = F)
 p2 <- tetris(background_color = F)
@@ -29,7 +29,7 @@ ggsave(plot=ok, "okeeffe_patch.png", dpi=300, height=10, width=10)
 
 
 #############################################
-
+### Koons
 #############################################
 p1 <- tetris(background_color = F, color="Koons")
 p2 <- tetris(background_color = F, color="Koons")
@@ -46,7 +46,7 @@ ggsave(plot=koons, "koons_patch.png", dpi=300, height=10, width=10)
 
 
 #############################################
-
+### Sidhu
 #############################################
 p1 <- tetris(background_color = F, color="Sidhu")
 p2 <- tetris(background_color = F, color="Sidhu")
@@ -63,7 +63,7 @@ ggsave(plot=si, "sidhu_patch.png", dpi=300, height=10, width=10)
 #############################################
 
 #############################################
-
+### Warhol
 #############################################
 p1 <- tetris(background_color = F, color="Warhol")
 p2 <- tetris(background_color = F, color="Warhol")
@@ -81,6 +81,7 @@ ggsave(plot=wa, "warhol_patch.png", dpi=300, height=10, width=10)
 #############################################
 
 
+### Create plot of all patches
 all_patch <- cowplot::plot_grid(plotlist=rep(list(ok, koons, si), 3), greedy=T, ncol=3, nrow=3)
 ggsave(plot=all_patch, "all_plot1.png", width=12, height = 12)
 
