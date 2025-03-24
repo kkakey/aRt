@@ -2,24 +2,18 @@
 A personal, exploratory project of creating generative art in R
 ***************************************************************
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/kkakey/aRt/main/genuary/day1-10000_of_something/plot2.png" width="600" >
-</p>
-
-
-********************************************
 ### [tetris](https://github.com/kkakey/aRt/blob/main/tetris1/tetris_v1.R)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/v1-20250324_H3611.png" width="600" >
 </p>
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/sidhu_patch.png" width="600" >
+<p align="left">
+<img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/sidhu_patch.png" width="300" >
 </p>
 
-<p align="center">
-<img src="https://github.com/kkakey/aRt/blob/main/tetris1/plots/v1-20250324_H2039.png" width="600" >
+<p align="right">
+<img src="https://github.com/kkakey/aRt/blob/main/tetris1/plots/v1-20250324_H2039.png" width="300" >
 </p>
 
 ### [knitted circles](https://github.com/kkakey/aRt/blob/main/circles/circles.Rmd)
@@ -58,6 +52,12 @@ A personal, exploratory project of creating generative art in R
 Animation created with the help of A.V. 😊
 <p align="center">
 <img src="https://raw.githubusercontent.com/kkakey/aRt/main/leaf/leaf-continuous.gif" width="750" >
+</p>
+
+### [10000 of something](https://github.com/kkakey/aRt/tree/002f67de82782d8d279e4ae9197491a5575f5b8c/genuary)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/kkakey/aRt/main/genuary/day1-10000_of_something/plot2.png" width="600" >
 </p>
 
 ### [squares](https://github.com/kkakey/aRt/tree/main/squares)
