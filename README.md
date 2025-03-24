@@ -8,12 +8,9 @@ A personal, exploratory project of creating generative art in R
 <img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/v1-20250324_H3611.png" width="600" >
 </p>
 
-<p align="left">
-<img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/sidhu_patch.png" width="300" >
-</p>
-
-<p align="right">
-<img src="https://github.com/kkakey/aRt/blob/main/tetris1/plots/v1-20250324_H2039.png" width="300" >
+<p align="center">
+  <<img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/sidhu_patch.png" width="320" >
+  <img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/v1-20250324_H2039.png" width="320" >
 </p>
 
 ### [knitted circles](https://github.com/kkakey/aRt/blob/main/circles/circles.Rmd)
