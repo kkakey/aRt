@@ -9,7 +9,8 @@ A personal, exploratory project of creating generative art in R
 </p>
 
 <p align="center">
-  <<img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/sidhu_patch.png" width="320" >
+  <img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/sidhu_patch.png" width="320" >
+  &nbsp; &nbsp; &nbsp; &nbsp;
   <img src="https://raw.githubusercontent.com/kkakey/aRt/refs/heads/main/tetris1/plots/v1-20250324_H2039.png" width="320" >
 </p>
 
